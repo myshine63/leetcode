@@ -1,24 +1,38 @@
 var threeSum = function (nums) {
-    nums.sort((a, b) => a - b);
     const res = [];
-    if (nums[0] + nums[1] + nums[2] === 0) {
-        res.push([nums[0], nums[1], nums[2]])
+    if (nums.length < 3) {
+        return res;
     }
+    nums.sort((a, b) => {
+        return a - b
+    });
     for (let i = 0; i < nums.length - 2; i++) {
-        for (let j = i + 1; j < nums.length - 1; j++) {
-            if (nums[i] === nums[j]) {
-                continue
-            }
-            for (let k = j + 1; k < nums.length; k++) {
-                if (nums[j] === nums[k]) {
-                    continue
+        if (i !== 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+        let left = i + 1;
+        let right = nums.length - 1
+        while (left < right) {
+            let a = nums[i];
+            let b = nums[left];
+            let c = nums[right];
+            if (a + b + c === 0) {
+                res.push([a, b, c]);
+                left++;
+                // 将左边的位置移动到下一个不相同的元素，右边的元素也可以这样做
+                while (left < right && nums[left] === nums[left - 1]) {
+                    left++;
                 }
-                if (nums[i] + nums[j] + nums[k] === 0) {
-                    res.push([nums[i], nums[j], nums[k]])
-                    break
+                right--;
+                while (left < right && nums[right] === nums[right + 1]) {
+                    right--;
                 }
+            } else if (a + b + c < 0) {
+                left++
+            } else {
+                right--
             }
         }
     }
+    return res
 }
-threeSum([-1,0,1,2,-1,-4])
