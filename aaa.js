@@ -1,11 +1,9 @@
-let a = 0;
-let b = 20;
-
-while (a < b) {
-    while (a < b && a < 10) {
-        a++
-    }
-    while (a < b && b > 15) {
-        b++
-    }
-}
+var maxSubArray = function(nums) {
+    let pre = 0, maxAns = nums[0];
+    nums.forEach((x) => {
+        pre = Math.max(pre + x, x);
+        maxAns = Math.max(maxAns, pre);
+    });
+    return maxAns;
+};
+console.log(maxSubArray([-5]))
