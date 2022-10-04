@@ -1,9 +1,12 @@
-var maxSubArray = function(nums) {
-    let pre = 0, maxAns = nums[0];
-    nums.forEach((x) => {
-        pre = Math.max(pre + x, x);
-        maxAns = Math.max(maxAns, pre);
-    });
-    return maxAns;
-};
-console.log(maxSubArray([-5]))
+function f() {
+  let i = 0
+  while (true) {
+    if (i > 5) {
+      break;
+    }
+    console.log(i)
+    i++
+  }
+  console.log(i)
+}
+f()
