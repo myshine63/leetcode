@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #tom {
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            background-color: orange;
+        }
+
+        #tom:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<div id="tom">hello tom</div>
+<script>
+  let work = new Worker("./60work.js")
+  let tom = document.getElementById("tom");
+  tom.onclick = () => {
+    work.postMessage("hello tom")
+  }
+  work.onmessage = (msg) => {
+    let div =document.createElement("h2")
+    div.innerText = msg.data
+    document.body.appendChild(div)
+  }
+</script>
+<body>
+
+</body>
+</html>

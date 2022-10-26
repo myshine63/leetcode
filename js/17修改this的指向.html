@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  // call,apply,bind,都可以用来修改this的指向
+  let tom = {
+    name: "tom",
+    say() {
+      console.log(this.name);
+    }
+  };
+  let jerry = {
+    name: "jerry"
+  };
+  var name = 'spike'
+
+  function logName() {
+    console.log(this.name)
+  }
+
+  logName(); // spike 直接调用this指向window
+  logName.call(tom) // tom
+  logName.apply(jerry) // jerry
+  tom.say.bind(jerry)() // jerry
+</script>
+</body>
+</html>

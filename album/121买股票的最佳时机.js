@@ -1,12 +1,13 @@
 var maxProfit = function (prices) {
-  // 从右往左找出每一天的max值
-  const minLeft = [prices[0]];
+  let min = [prices[0]];
+  // 计算出每一天左边的最小值
   for (let i = 1; i < prices.length; i++) {
-    minLeft[i] = Math.min(prices[i], minLeft[i - 1])
+    min[i] = Math.min(prices[i], min[i - 1])
   }
-  let max = 0
-  for (let i = 0; i < prices.length; i++) {
-    max = Math.max(max, prices[i] - minLeft[i])
+  // 计算出每一天的最大收益，并且和最大收益比较
+  let max = 0;
+  for (let i = 0; i < min.length; i++) {
+    max = Math.max(max, prices[i] - min[i])
   }
-  return max
+  return max;
 };

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  var nextPermutation = function (root, node, res = []) {
+    if (root === null) {
+      return -1
+    }
+    if (root === node) {
+      return res.push(root)
+    }
+    res.push(root);
+    let arr = nextPermutation(root.left, node, res)
+    if (arr !== -1) {
+      res.pop();
+      return nextPermutation(root.right, node, res)
+    }
+    return arr
+  }
+  let a = {val: 1}
+  let b = {val: 2}
+  let c = {val: 3}
+  let d = {val: 4}
+  let e = {val: 5}
+  let f = {val: 6}
+  let g = {val: 7}
+  let h = {val: 8}
+  let i = {val: 9}
+
+  a.left = b;
+  a.right = c;
+  b.left = d;
+  b.right = e;
+  d.left = f;
+  d.right = g;
+  g.left = h;
+  g.right = i;
+
+  console.log(nextPermutation(a, g))
+</script>
+</body>
+</html>
