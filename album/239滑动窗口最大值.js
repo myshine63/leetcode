@@ -22,3 +22,28 @@ var maxSlidingWindow = function (nums, k) {
   }
   return res
 };
+
+function f(nums, k) {
+  if (nums.length === 1 || k === 1) {
+    return nums;
+  }
+  let stack = [];
+  for (let i = 0; i < k; i++) {
+    while (stack.length && nums[stack[stack.length - 1]]) {
+      stack.pop();
+    }
+    stack.push(i)
+  }
+  let res = [nums[stack[0]]];
+  for (let i = k; i < nums.length; i++) {
+    while (stack.length && nums[stack[stack.length - 1]]) {
+      stack.pop();
+    }
+    stack.push(i)
+    while (stack[0] <= i - k) {
+      stack.shift()
+    }
+    res.push(nums[stack[0]])
+  }
+  return res;
+}

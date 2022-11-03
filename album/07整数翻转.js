@@ -4,16 +4,16 @@
 // 有因为位数相同的时候，这个数首位是2或者1开头的，那么最后一步计算后，它的末尾是小于7的。因此我们只需要判断它在上面那个区间就好了
 
 var reverse = function (x) {
-    const maxInt32 = Math.pow(2, 31) - 1
-    let flag = Math.floor(maxInt32 / 10);
-    let res = 0;
-    while (x !== 0) {
-        if (res <= flag && res >= -flag) {
-            res = res * 10 + x % 10;
-            x = parseInt(x / 10);
-        } else {
-            return 0
-        }
+  const maxInt32 = Math.pow(2, 31) - 1
+  let flag = Math.floor(maxInt32 / 10);
+  let res = 0;
+  while (x !== 0) {
+    if (res <= flag && res >= -flag) {
+      res = res * 10 + x % 10;
+      x = Math.floor(x / 10);
+    } else {
+      return 0
     }
-    return res
+  }
+  return res
 };

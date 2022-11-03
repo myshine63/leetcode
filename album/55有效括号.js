@@ -8,16 +8,14 @@ function checkValidString(s) {
       max++;
       min++;
     } else if (i === "*") {
-      if (min < 0) {
-        min++;
-      }
+      min = Math.max(min - 1, 0)
       max++;
     } else {
       max--;
       min--
-    }
-    if (max < 0) {
-      return false;
+      if (max < 0) {
+        return false;
+      }
     }
   }
   return min === 0

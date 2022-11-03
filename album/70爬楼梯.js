@@ -5,7 +5,7 @@ var climbStairs = function (n) {
     return n
   }
   let f1 = 1;
-  let f2 = 2
+  let f2 = 2;
   let res;
   for (let i = 3; i <= n; i++) {
     // 当前n的值为前两个值相加

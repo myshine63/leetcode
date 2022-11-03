@@ -24,3 +24,25 @@ var generateParenthesis = function (n) {
   track("(", "(")
   return res
 };
+
+function f(n) {
+  let res = [];
+
+  function track(curr, check) {
+    if (curr.length === 2 * n && check.length === 0) {
+      res.push(curr)
+    } else if (curr.length < 2 * n) {
+      if (check.length === 0) {
+        track(curr + "(", check + "(")
+      } else {
+        track(curr + "(", check + "(")
+        track(curr + ")", check.slice(0, check.length - 1))
+      }
+    }
+  }
+
+  track("(", "(")
+  return res
+}
+
+console.log(f(2))

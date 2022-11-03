@@ -5,13 +5,14 @@ var buildTree = function (preorder, inorder) {
     return null
   }
   let root = new TreeNode(preorder[0]);
-  let i
-  for (i = 0; i < inorder.length; i++) {
-    if (preorder[0] === inorder[i]) {
-      break;
-    }
+  // 找出根节点在中序中的位置
+  let i = 0;
+  while (preorder[0] !== inorder[i]) {
+    i++;
   }
-  root.left = buildTree(preorder.slice(1, i), inorder.slice(0, i))
+  // 递归调用。找出当前节点的前序左子树节点，和中序的左子树节点
+  root.left = buildTree(preorder.slice(1, i + 1), inorder.slice(0, i))
+  // 找出当前节点前序有节点，和中序右节点
   root.right = buildTree(preorder.slice(i + 1), inorder.slice(i + 1))
   return root
 };

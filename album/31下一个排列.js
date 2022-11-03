@@ -14,7 +14,7 @@ var nextPermutation = function (nums) {
   // 找到第一个大于a的数,b
   if (i >= 0) {
     let j = nums.length - 1;
-    while (i >= 0 && nums[j] <= nums[i]) {
+    while (nums[j] <= nums[i]) {
       j--;
     }
     [nums[i], nums[j]] = [nums[j], nums[i]];

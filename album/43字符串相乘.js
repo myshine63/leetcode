@@ -11,17 +11,16 @@ var multiply = function (num1, num2) {
 };
 
 function add(a, b) {
-  let i = a.length - 1;
-  let j = b.length - 1;
-  let flag = 0;
+  let maxLen = Math.max(a.length, b.length);
+  a = a.padStart(maxLen, "0")
+  b = b.padStart(maxLen, "0")
   let res = "";
-  while (i >= 0 || j >= 0) {
-    let m = i >= 0 ? Number(a[i]) : 0;
-    let n = j >= 0 ? Number(b[j]) : 0;
-    res = (m + n + flag) % 10 + res;
+  let flag = 0;
+  for (let i = maxLen - 1; i >= 0; i--) {
+    let m = Number(a[i]);
+    let n = Number(b[i]);
     flag = Math.floor((m + n + flag) / 10)
-    i--;
-    j--;
+    res = (m + n + flag) % 10 + res
   }
   if (flag > 0) {
     res = flag + res

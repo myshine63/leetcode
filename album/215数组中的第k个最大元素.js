@@ -25,6 +25,7 @@ var findKthLargest = function (nums, k) {
   if (left.length < searchIndex) {
     return findKthLargest(right, k)
   } else {
+    // mid要占一个位置
     return findKthLargest(left, k - right.length - 1)
   }
 }
