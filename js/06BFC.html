@@ -28,7 +28,7 @@
         .box2 {
             background-color: #d1ff4a;
             /*overflow: hidden;*/
-            display: flow-root;
+            /*display: flow-root;*/
         }
 
         .float {
@@ -47,7 +47,7 @@
     </style>
 </head>
 <body>
-用来处理外边距重合问题
+用来处理外边距重合问题，解决文字环绕效果
 <div class="box">
     <div class="word1">
         hello tom
@@ -57,8 +57,9 @@
             hello word
         </div>
     </div>
+    <div></div>
 </div>
-用来处理浮动的问题
+用来处理浮动的问题，父元素坍塌，
 <div class="box2">
     <div class="float">
         hello tom

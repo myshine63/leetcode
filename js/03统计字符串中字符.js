@@ -1,14 +1,15 @@
 // 统计字符串中的字符个数
-function countChar(str = '') {
-  let res = new Map();
-  for (let val of str) {
-    if (res.has(val)) {
-      res.set(val, res.get(val) + 1)
-    } else {
-      res.set(val, 1)
-    }
+function countChar(str) {
+  if (typeof str !== "string") {
+    return
   }
-  return res;
+  const res = new Map()
+  for (let val of str) {
+    let count = res.get(val) || 0;
+    count += 1;
+    res.set(val, count)
+  }
+  return res
 }
 
 console.log(countChar('hello tom'))

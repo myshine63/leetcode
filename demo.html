@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function f(fn){
+        return function (...args){
+            fn.apply(this,args)
+        }
+    }
+
+    class Fa{
+        constructor() {
+            this.name=123
+            // this.say.bind(this)
+        }
+        say(){
+            console.log(this.name)
+        }
+    }
+    let a = new Fa()
+    let b = f(a.say)
+    b()
+    // b.bind({name:456});
+    b()
+
+</script>
+</body>
+</html>

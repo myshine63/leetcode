@@ -4,15 +4,17 @@
  * @returns {Function} 封装后的函数
  */
 function once(func) {
-  let flag = true;
+  let called = false;
   let self = this;
   let res;
   return function (...args) {
-    if (flag) {
-      res = func.apply(self, args);
-      flag = false
+    if(called){
+      return res
+    }else {
+      res = func.apply(self,args)
+      called=true
+      return res
     }
-    return res
   }
 }
 
