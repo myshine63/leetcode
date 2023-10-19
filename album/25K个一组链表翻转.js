@@ -32,3 +32,14 @@ var reverseKGroup = function (head, k) {
   return res.next;
 };
 
+
+function f(head,tail){
+  let prev = tail.next;
+  let cur = head
+  while(prev !== tail){
+    let next = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = next;
+  }
+}

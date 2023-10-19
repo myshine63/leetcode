@@ -19,3 +19,4 @@ var maxArea = function (height) {
   }
   return max;
 };
+console.log()

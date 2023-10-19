@@ -8,48 +8,53 @@
 
 </body>
 <script>
-  // 实现bind
-  Function.prototype.myBind = function (context, ...args) {
-    let self = this;
-    return function () {
-      return self.apply(context, [...args, ...arguments])
+    // 实现bind
+    Function.prototype.myBind = function (context, ...args) {
+        let self = this;
+
+        function f() {
+            // 如果bind后的函数作为构造函数使用，绑定的context会失效
+            context = this instanceof f ? this : context
+            return self.apply(context, [...args, ...arguments])
+        }
+
+        return f()
     }
-  }
-  // 实现apply
-  Function.prototype.myApply = function (context, args) {
-    context = context || window
-    let fnSymbol = Symbol('fn');
-    context[fnSymbol] = this;
-    let res = context[fnSymbol](...args);
-    delete context[fnSymbol];
-    return res
-  }
-  // 实现call
-  Function.prototype.myCall = function (context, ...args) {
-    context = context || window
-    let fnSymbol = Symbol('fn');
-    context[fnSymbol] = this;
-    let res = context[fnSymbol](...args);
-    delete context[fnSymbol];
-    return res
-  }
+    // 实现apply
+    Function.prototype.myApply = function (context, args) {
+        context = context || window
+        let fnSymbol = Symbol('fn');
+        context[fnSymbol] = this;
+        let res = context[fnSymbol](...args);
+        delete context[fnSymbol];
+        return res
+    }
+    // 实现call
+    Function.prototype.myCall = function (context, ...args) {
+        context = context || window
+        let fnSymbol = Symbol('fn');
+        context[fnSymbol] = this;
+        let res = context[fnSymbol](...args);
+        delete context[fnSymbol];
+        return res
+    }
 
-  let obj = {
-    num: 1
-  }
-  var num = 10
+    let obj = {
+        num: 1
+    }
+    var num = 10
 
-  function add(a, b) {
-    console.log(this.num + a + b)
-  }
+    function add(a, b) {
+        console.log(this.num + a + b)
+    }
 
-  add(1, 1);// 12
-  add.apply(null, [1, 1]) // 12
-  add.call(null, 1, 1) // 12
-  add.myApply(null, [1, 1]) // 12
-  add.myApply(obj, [1, 1]) // 3
-  add.myCall(null, 1, 1) // 12
-  add.myCall(obj, 1, 1) // 3
+    add(1, 1);// 12
+    add.apply(null, [1, 1]) // 12
+    add.call(null, 1, 1) // 12
+    add.myApply(null, [1, 1]) // 12
+    add.myApply(obj, [1, 1]) // 3
+    add.myCall(null, 1, 1) // 12
+    add.myCall(obj, 1, 1) // 3
 
 </script>
 </html>

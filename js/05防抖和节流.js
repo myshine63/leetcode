@@ -3,29 +3,34 @@
 // 以提高性能和减少不必要的计算或请求。
 function debounce(fn, wait) {
     let timer;
+    let res;
     return function (...args) {
+        const self = this;
         // 先清除掉原来的定时器
         clearInterval(timer);
         // 创建一个新的定时器，去执行函数
         timer = setTimeout(() => {
-            fn.apply(this, args)
+            res = fn.apply(self, args)
         }, wait);
+        return res;
     }
 }
 
-// 节流是指在一定时间间隔内只执行一次函数。无论事件触发的频率有多高，节流会在每个固定的时间间隔内执行一次函数。
+// 节流: 无论事件触发的频率有多高，在每个固定的时间间隔内只会执行一次事件。
 // 节流的主要目的是控制事件处理的频率，以避免过多的计算或请求对系统性能造成负担。
 function throttle(fn, wait) {
     let canNewTimer = true;
+    let res
     return function (...args) {
         if (canNewTimer) {
             canNewTimer = false;
+            res = fn.apply(this, args)
             // 创建一个新的定时器，去执行函数
             setTimeout(() => {
                 canNewTimer = true;
-                fn.apply(this, args)
             }, wait);
         }
+        return res
     }
 }
 

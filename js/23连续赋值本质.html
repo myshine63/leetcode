@@ -6,19 +6,19 @@
 </head>
 <body>
 <script>
-  // 用var定义时，相当于定义了3个var变量
-  var a = b = c = 1
+  // 本质上只定义申明了第一个变量，其他的变量采用隐式申明，相当于全局变量
+  var a = b = c = 1 // 相当于var a,var b ,var c
   console.log('a:', window.a, a); // 1 1
   console.log('b:', window.b, b); // 1 1
   console.log('c:', window.c, c); // 1 1
-  // 定义了一个let e,
+  // 定义了一个let d, var e, var f
   let d = e = f = 2
   console.log('d:', window.d, d); // undefined 2
   console.log('e:', window.e, e); // 2 2
   console.log('f:', window.f, f); // 2 2
 
   function z() {
-    var g = h = i = 3
+    var g = h = i = 3 // var g,则g是局部变量，h,i没有申明，相当于全局变量
     console.log('g:', window.g, g); // undefined 3
     console.log('h:', window.h, h); // 3 3
     console.log('i:', window.i, i); // 3 3
@@ -27,8 +27,11 @@
     console.log('k:', window.k, k); // 4 4
     console.log('l:', window.l, l); // 4 4
   }
-
   z();
+  console.log('h:', window.h, h); // 3 3
+  console.log('i:', window.i, i); // 3 3
+  console.log('k:', window.k, k); // 4 4
+  console.log('l:', window.l, l); // 4 4
 </script>
 </body>
 </html>

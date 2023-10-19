@@ -9,21 +9,25 @@ var spiralOrder = function (matrix) {
     for (let i = left; i <= right; i++) {
       res.push(matrix[bottom][i]);
     }
+    console.log(res)
     bottom++;
-    // 从下往上
+    // 从上往下
     for (let i = bottom; i <= top; i++) {
       res.push(matrix[i][right]);
     }
+    console.log(res)
     right--;
     // 从左往右的时候，额为需要bottom<=top不然会重复记录
     for (let i = right; i >= left && bottom <= top; i--) {
       res.push(matrix[top][i]);
     }
+    console.log(res)
     top--;
     // 从下往上的时候，额为需要left<=right不然会重复记录
     for (let i = top; i >= bottom && left <= right; i--) {
       res.push(matrix[i][left]);
     }
+    console.log(res)
     left++;
   }
   return res;

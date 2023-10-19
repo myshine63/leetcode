@@ -29,7 +29,7 @@ function select(arr) {
     }
 }
 
-// 插入排序。将数组分为arr1,arr2，且arr1已经排好序。
+// 插入排序。将数组分为前半部分已排序arr1，后半部分待排序arr2。
 // 从arr2中取第一个元素，和arr1的最后一个比较，然后交换位置，然后一直交换位置
 function insert(arr) {
     for (let i = 1; i < arr.length; i++) {

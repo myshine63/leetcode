@@ -1,25 +1,14 @@
-let arr = [4, 3, 2, 1, 5];
-
-// 冒泡，选择，插入，归并，快拍
-function f(arr) {
-    if (arr.length < 2) {
-        return arr;
-    }
-    let mid = Math.floor(arr.length / 2);
-    let left = [];
-    let right = [];
-    let flag = arr[mid];
-    for (let i = 0; i < arr.length; i++) {
-        if (i === mid) {
-            continue;
-        }
-        if (arr[i] < flag) {
-            left.push(arr[i])
-        }else {
-            right.push(arr[i])
+var removeDuplicates = function (nums) {
+    let i = 0;
+    for (let j = 1; j < nums.length; j++) {
+        if (nums[i] !== nums[j]) {
+            i++
+            nums[i] = nums[j]
         }
     }
-    return f(left).concat(flag,f(right))
-}
+    nums.splice(i+1)
+    return nums.length
+};
 
-console.log(f(arr))
+console.log(removeDuplicates([0,0,1,1,1,2,2,3,3,4]))
+console.log(removeDuplicates([1,1,2]))

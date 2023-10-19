@@ -19,7 +19,6 @@ console.log(root);
 
 // 前序
 function font(root) {
-
   if (root.left) {
     font(root.left)
   }
@@ -28,5 +27,6 @@ function font(root) {
   }
   console.log(root.val);
 }
+
 
 font(root);
