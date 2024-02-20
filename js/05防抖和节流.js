@@ -3,16 +3,14 @@
 // 以提高性能和减少不必要的计算或请求。
 function debounce(fn, wait) {
     let timer;
-    let res;
     return function (...args) {
         const self = this;
         // 先清除掉原来的定时器
         clearInterval(timer);
         // 创建一个新的定时器，去执行函数
         timer = setTimeout(() => {
-            res = fn.apply(self, args)
+            fn.apply(self, args)
         }, wait);
-        return res;
     }
 }
 
@@ -20,17 +18,15 @@ function debounce(fn, wait) {
 // 节流的主要目的是控制事件处理的频率，以避免过多的计算或请求对系统性能造成负担。
 function throttle(fn, wait) {
     let canNewTimer = true;
-    let res
     return function (...args) {
         if (canNewTimer) {
             canNewTimer = false;
-            res = fn.apply(this, args)
+            fn.apply(this, args)
             // 创建一个新的定时器，去执行函数
             setTimeout(() => {
                 canNewTimer = true;
             }, wait);
         }
-        return res
     }
 }
 
@@ -46,5 +42,6 @@ class De {
 }
 
 const de = new De();
-const a = debounce(de.say, 100).bind({name: 456}) // bind优先级次之
+const fn = de.say.bind(de)
+const a = debounce(fn, 100).bind({name: 456}) // bind优先级次之
 a()

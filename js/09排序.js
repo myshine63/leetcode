@@ -4,6 +4,7 @@ let arr = [5, 1, 2, 2, 3, 4];
 function popSort(arr) {
     let count = 0
     for (let i = 0; i < arr.length - 1; i++) {
+        count++
         let flag = true
         for (let j = 0; j < arr.length - 1 - i; j++) {
             if (arr[j] > arr[j + 1]) {
@@ -15,18 +16,25 @@ function popSort(arr) {
             break;
         }
     }
+    console.log(count)
     return arr
 }
 
 // 选择排序。先找出数组中最小的值，和第一个元素交换位置。然后找出排除第一个元素剩下的数组的最小值和第二个元素交换位置，依次类推On2
 function select(arr) {
+    let flag = true;
     for (let i = 0; i < arr.length - 1; i++) {
         for (let j = i + 1; j < arr.length; j++) {
             if (arr[i] > arr[j]) {
                 [arr[i], arr[j]] = [arr[j], arr[i]]
+                flag = false;
             }
         }
+        if (flag) {
+            break;
+        }
     }
+    return arr;
 }
 
 // 插入排序。将数组分为前半部分已排序arr1，后半部分待排序arr2。

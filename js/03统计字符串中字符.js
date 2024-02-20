@@ -1,7 +1,7 @@
 // 统计字符串中的字符个数
 function countChar(str) {
   if (typeof str !== "string") {
-    return
+    throw new Error('参数需为字符串')
   }
   const res = new Map()
   for (let val of str) {
@@ -12,4 +12,4 @@ function countChar(str) {
   return res
 }
 
-console.log(countChar('hello tom'))
+console.log(countChar(123))

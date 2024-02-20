@@ -1,14 +1,23 @@
-var removeDuplicates = function (nums) {
-    let i = 0;
-    for (let j = 1; j < nums.length; j++) {
-        if (nums[i] !== nums[j]) {
-            i++
-            nums[i] = nums[j]
+// 冒泡算法O(n2)
+function quick(arr) {
+    if (arr.length < 2) {
+        return arr;
+    }
+    let mid = Math.floor(arr.length / 2);
+    let left = [];
+    let right = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (i === mid) {
+            continue;
+        }
+        if (arr[i] <= arr[mid]) {
+            left.push(arr[i])
+        } else {
+            right.push(arr[i])
         }
     }
-    nums.splice(i+1)
-    return nums.length
-};
+    return quick(left).concat(arr[mid], quick(right));
+}
 
-console.log(removeDuplicates([0,0,1,1,1,2,2,3,3,4]))
-console.log(removeDuplicates([1,1,2]))
+
+console.log(quick([3, 2, 1]))
