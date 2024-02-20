@@ -9,3 +9,6 @@ function getDay(dateStr) {
   }
   return count;
 }
+let date = new Date();
+date.setDate(0);
+console.log(date.toLocaleDateString())

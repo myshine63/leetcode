@@ -9,11 +9,11 @@ setTimeout(function () {
 async function f1() {
     console.log(3);
     await f();
-    await setTimeout(function () {
+    setTimeout(function () {
         console.log(4)
     }, 0);
     await f();
-    await setTimeout(function () {
+    setTimeout(function () {
         console.log(4)
     }, 0);
     await f();
@@ -32,4 +32,16 @@ new Promise((resolve, reject) => {
     console.log(10)
 });
 f1();
-// 5 6 7
+// 5
+// 6
+// 7
+// 3
+// 1
+// 8
+// 1
+// 9
+// 1
+// 10
+// 2
+// 4
+// 4

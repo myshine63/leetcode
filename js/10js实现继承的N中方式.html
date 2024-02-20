@@ -7,7 +7,7 @@
 <body>
 <script>
     // 首先每个函数都有一个prototype属性。该属性是一个对象。这个对象包含一个constructor属性，这个属性指向函数本身
-    // a instanceof A，需要判断a[proto] 是否在原行链上
+    // a instanceof A，需要判断a[__proto__] 是否在原行链上
 
     /**
      * 原型链式继承
@@ -56,6 +56,7 @@
         C.call(this, name);
         this.age = age;
     }
+
     CC.prototype = new C('tom');
 
     /**
@@ -64,13 +65,14 @@
     const D = {
         name: 'Parent',
         colors: ['red', 'blue', 'green'],
-        say(){
+        say() {
             console.log(this.name)
         }
     }
 
     const DD = Object.create(parent);
     DD.say();
+
     /**
      * 寄生式继承
      */
