@@ -88,3 +88,4 @@ function deepClone(target, set = new Set()) {
 }
 
 console.log(deepClone(target))
+console.log(new Map().toString())
