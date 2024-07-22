@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="a">
+    点击按钮
+</button>
+<div id="b">
+
+</div>
+<script>
+    // let ch = new MessageChannel();
+    // let {port1, port2} = ch;
+    // let count = 0
+    let startTime = 0;
+    const during = 10
+    let deadTime = 0
+
+    // function f() {
+    //     while (!shouldStop()) {
+    //         f2()
+    //     }
+    //     if (count < 100000000000) {
+    //         return startWork()
+    //     }
+    // }
+    //
+    // port2.onmessage = f;
+    //
+    function f2() {
+        count++;
+    }
+
+    //
+    function shouldStop() {
+        return window.performance.now() > deadTime
+    }
+
+    //
+    // function startWork() {
+    //     startTime = window.performance.now();
+    //     deadTime = startTime + during;
+    //     port1.postMessage(null);
+    // }
+
+    // startWork();
+    let count = 0
+
+    function f22() {
+        startTime = window.performance.now();
+        deadTime = startTime + during;
+
+        while (!shouldStop()) {
+            f2()
+        }
+    }
+
+    setInterval(f22, 0)
+
+
+    // let count = 0
+    // setInterval(() => {
+    //     count++
+    // }, 0)
+    let c = document.getElementById('a')
+    let b = document.getElementById('b')
+    c.addEventListener("click", () => {
+        let p = document.createElement('p')
+        p.innerText = String(count)
+        b.appendChild(p)
+    })
+
+</script>
+</body>
+</html>

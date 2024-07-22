@@ -3,32 +3,59 @@
 // 则缩小范围去另外一边重复这样的查询 
 
 var search = function (nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2);
-    if (nums[mid] === target) {
-      return mid
+    let left = 0;
+    let right = nums.length - 1;
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+        if (nums[mid] === target) {
+            return mid
+        }
+        // 如果左边是有序的,则尝试在左边寻找
+        if (nums[left] <= nums[mid]) {
+            // 首先判断这个数是否在左边这个区间内，如果在，缩小范围继续查找
+            if (target >= nums[left] && target < nums[mid]) {
+                right = mid - 1
+            } else {
+                // 如果不在，则在右边区域缩小范围继续查找
+                left = mid + 1
+            }
+        } else { // 如果左边区域是无序的，则右边区域是有序的，则尝试在右边区域查找
+            // 如果这个值在右边区域，则缩小范围继续查找
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1;
+            } else {
+                // 如果不在右边区域，则在左边区域缩小范围继续查找
+                right = mid - 1
+            }
+        }
     }
-    // 如果左边是有序的,则尝试在左边寻找
-    if (nums[left] <= nums[mid]) {
-      // 首先判断这个数是否在左边这个区间内，如果在，缩小范围继续查找
-      if (target >= nums[left] && target < nums[mid]) {
-        right = mid - 1
-      } else {
-        // 如果不在，则在右边区域缩小范围继续查找
-        left = mid + 1
-      }
-    } else { // 如果左边区域是无序的，则右边区域是有序的，则尝试在右边区域查找
-      // 如果这个值在右边区域，则缩小范围继续查找
-      if (target > nums[mid] && target <= nums[right]) {
-        left = mid + 1;
-      } else {
-        // 如果不在右边区域，则在左边区域缩小范围继续查找
-        right = mid - 1
-      }
-    }
-  }
-  return -1
+    return -1
 }
 search([5, 6, 7, 1, 2, 3, 4], 6)
+
+function mySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+        if (arr[mid] === target) {
+            return mid;
+        }
+        if (arr[left] <= arr[mid]) {
+            if (arr[left] <= target && target < arr[mid]) {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+        } else {
+            if (arr[mid] < target && target <= arr[right]) {
+                left = mid + 1
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+    return -1
+}
+
+console.log(mySearch([5, 6, 7, 1, 2, 3, 4], 6))

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="a">add item</button>
+<div id="b"></div>
+</body>
+<script>
+    // 用来记录任务的开始时间
+    let startTime;
+    // 定义一个常量，用来设置一个宏任务执行的时长
+    const during = 5;
+    // 用来记录任务的截止时间
+    let endTime = 0;
+    // 创建两个端口，用来创建宏任务
+    let {port1, port2} = new MessageChannel();
+    // 计数器
+    let count = 0;
+    // 需要执行的自增任务
+    function work() {
+        count++
+    }
+    // 判断当前时间是否超过了截止时间，也就是上述5,6过程
+    function shouldStop() {
+        return window.performance.now() > endTime;
+    }
+    // 用来创建一个宏任务
+    function startWork() {
+        // 记录当前宏任务的开始时间
+        startTime = window.performance.now();
+        // 计算出当前宏任务的截止时间
+        endTime = startTime + during;
+        // 创建一个宏任务，可以理解成用户进行了一次点击操作
+        port1.postMessage(null)
+    }
+    // 宏任务，在内部执行我们的自增任务，可以理解成响应用户的点击操作
+    function performWork() {
+        // 判断是否需要终止当前宏任务，或者任务已经执行完毕
+        while (!shouldStop() && count < 100000000) {
+            work()
+        }
+        // 当前宏任务已经到了截止时间，如果任务还没有执行完毕，则需要重新创建一个宏任务，需要递归调用
+        if(count < 1000000000){
+            startWork();
+        }
+    }
+
+    // 给port2绑定事件，用来响应port1的postMessage操作
+    port2.onmessage = performWork;
+
+    // 获取dom节点
+    let a = document.getElementById('a');
+    let b = document.getElementById('b');
+
+    // 用户的点击操作
+    a.addEventListener('click', () => {
+        let p = document.createElement('p')
+        p.innerText = String(count)
+        b.appendChild(p)
+    })
+    // 开始任务
+    startWork();
+
+</script>
+</html>

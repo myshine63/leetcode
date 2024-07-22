@@ -1,18 +1,16 @@
 var permute = function (nums) {
-  let res = [];
-  const f1 = (arr)=>{
-    for(let i =0;i<nums.length;i++){
-      if(arr.includes(nums[i])){
-        continue;
-      }
-      let a = [...arr,nums[i]];
-      if(a.length === nums.length){
-        res.push(a)
-      }else{
-        f1(a)
-      }
+    let res = [];
+    const track = (arr = []) => {
+        if (arr.length === nums.length) {
+            return res.push(arr)
+        }
+        for (let v of nums) {
+            if (arr.includes(v)) {
+                continue;
+            }
+            track([...arr, v]);
+        }
     }
-  }
-  f1([])
-  return res
+    track();
+    return res
 };

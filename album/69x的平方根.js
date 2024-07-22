@@ -1,3 +1,4 @@
+// 首先x为非负整数，那么x的平方根位于0-x,而且只保留整数部分，因此可以采用二分查找
 var mySqrt = function (x) {
   let left = 0;
   let right = x;

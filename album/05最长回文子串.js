@@ -20,11 +20,20 @@ var longestPalindrome = function (s) {
     return max
 };
 
-// 获取字符串从指定位置开始的回文字符串
+// 从字符串的指定位置获取回文字符串
 function isPalindrome(s, left, right) {
     while (left > -1 && right < s.length && s[left] === s[right]) {
         left--;
         right++;
+    }
+    return s.slice(left + 1, right)
+}
+
+
+function getStr(left, right, s) {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+        left--;
+        right++
     }
     return s.slice(left + 1, right)
 }

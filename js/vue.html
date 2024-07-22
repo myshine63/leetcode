@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-
+<div id="a"></div>
 <body>
 <script>
-  var a =10;
-  let b = {
-    a:'123',
-    f:()=>{
-      console.log(this.a)
+    let count = 0;
+    let el = document.getElementById('a')
+    function f(){
+        console.log(count)
+        requestAnimationFrame(f)
     }
-  }
-  console.log(b.f.apply({
-    a:1231231
-  }));
+    requestAnimationFrame(f);
+    // setInterval(()=>{
+    //     count++
+    //     el.innerHTML=String(count)
+    // },10)
 </script>
 </body>
 </html>

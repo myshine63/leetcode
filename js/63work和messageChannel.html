@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text">
+<button onclick="port1.postMessage('1111')">send</button>
+<div id="a"></div>
+</body>
+<script>
+    let myWorker = new Worker('./63work.js');
+    let ch = new MessageChannel();
+    let {port1, port2} = ch;
+    myWorker.postMessage('work收到消息了吗？', [port1]);
+    myWorker.onmessage = e => {
+        console.log('myWorker收到over!', e.data)
+    }
+    port2.postMessage('port1接受到消息了吗?');
+    port2.onmessage = e => {
+        console.log('port2已经收到消息', e.data)
+    }
+    let count = 1
+    requestAnimationFrame(()=>{
+        console.log(count++)
+    })
+</script>
+</html>

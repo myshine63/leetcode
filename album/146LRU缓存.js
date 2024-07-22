@@ -13,15 +13,12 @@ var LRUCache = function (capacity) {
  */
 LRUCache.prototype.get = function (key) {
     if (this.cache.has(key)) {
-        let {value} = this.cache.get(key);
-        this.cache.set(key, {
-            value, weight: this.current
-        })
-        this.current += 1;
-        return value
-    } else {
-        return -1
+        let data = this.cache.get(key);
+        data.weight = this.current
+        this.current++;
+        return data.value;
     }
+    return -1
 };
 
 /**
@@ -44,22 +41,15 @@ LRUCache.prototype.put = function (key, value) {
             weight: this.current
         })
     }
-    this.current += 1
+    this.current++
 };
 LRUCache.prototype.remove = function () {
-    let res;
-    for (let [key, val] of this.cache) {
-        if (res) {
-            if (val.weight < res.weight) {
-                res = {
-                    key,
-                    weight: val.weight
-                }
-            }
-        } else {
+    let res = {key: '', weight: this.current + 5};
+    for (let [key, data] of this.cache) {
+        if (data.weight < res.weight) {
             res = {
                 key,
-                weight: val.weight
+                weight: data.weight
             }
         }
     }
@@ -104,7 +94,7 @@ class Lru {
         if (this.size < this.masSize) {
             return;
         }
-        let minTime = 0;
+        let minTime = Date.now();
         let needRemoveKey;
         for (let [key, data] of this.cache.entries()) {
             const {value, time} = data;

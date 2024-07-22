@@ -9,11 +9,9 @@ var longestCommonPrefix = function (strs) {
 
 // 获取两个字符串,最长相同前缀
 function getStartSameStr(str1, str2) {
-    let res = '';
     let i = 0;
     while (i < str1.length && i < str2.length && str1[i] === str2[i]) {
-        res += str1[i]
         i++
     }
-    return res;
+    return str1.slice(0, i);
 }

@@ -1,3 +1,8 @@
+// 首选需要将数组进行排序
+// 一次便利每一个元素
+// 当选中一个元素后，在其后面部分采用双指针夹闭。
+// 如果三树相加大于0，向左移动右指针，否者移动左指针。
+// 符合的值后，需要移动指针
 var threeSum = function (nums) {
     const res = [];
     if (nums.length < 3) {
@@ -7,6 +12,7 @@ var threeSum = function (nums) {
         return a - b
     });
     for (let i = 0; i < nums.length - 2; i++) {
+        // 除了第一次，需要将元素移动到下一个不重复的元素
         if (i !== 0 && nums[i] === nums[i - 1]) {
             continue;
         }
