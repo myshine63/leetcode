@@ -2,8 +2,10 @@ var maxSlidingWindow = function (nums, k) {
   if (nums.length === 1 || k === 1) {
     return nums
   }
+  // q用来保存一个窗口，队列头部保存着窗口可见的最大数的index。
   let q = [];
   for (let i = 0; i < k; i++) {
+      // 因为新进来的数，靠右，因此窗口中比这个数小的数，都需要清理掉。
     while (q.length && nums[i] >= nums[q[q.length - 1]]) {
       q.pop()
     }
@@ -15,6 +17,7 @@ var maxSlidingWindow = function (nums, k) {
       q.pop()
     }
     q.push(i)
+      // 每次滑动时，都需要考虑q头部元素是否还在窗口内。如果不在了，则需要清除掉。
     while (q[0] <= i - k) {
       q.shift()
     }
@@ -22,28 +25,3 @@ var maxSlidingWindow = function (nums, k) {
   }
   return res
 };
-
-function f(nums, k) {
-  if (nums.length === 1 || k === 1) {
-    return nums;
-  }
-  let stack = [];
-  for (let i = 0; i < k; i++) {
-    while (stack.length && nums[stack[stack.length - 1]]) {
-      stack.pop();
-    }
-    stack.push(i)
-  }
-  let res = [nums[stack[0]]];
-  for (let i = k; i < nums.length; i++) {
-    while (stack.length && nums[stack[stack.length - 1]]) {
-      stack.pop();
-    }
-    stack.push(i)
-    while (stack[0] <= i - k) {
-      stack.shift()
-    }
-    res.push(nums[stack[0]])
-  }
-  return res;
-}

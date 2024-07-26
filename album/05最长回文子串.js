@@ -5,7 +5,7 @@ var longestPalindrome = function (s) {
         return s
     }
     let max = ''
-    for (let i = 0; i < s.length - 1; i++) {
+    for (let i = 0; i < s.length; i++) {
         // 获取以当前字符串为中心的回文字符串
         const odd = isPalindrome(s, i, i);
         // 获取以当前字符和下一个字符为中心的字符串
@@ -30,10 +30,4 @@ function isPalindrome(s, left, right) {
 }
 
 
-function getStr(left, right, s) {
-    while (left >= 0 && right < s.length && s[left] === s[right]) {
-        left--;
-        right++
-    }
-    return s.slice(left + 1, right)
-}
+console.log(longestPalindrome('ab'))
