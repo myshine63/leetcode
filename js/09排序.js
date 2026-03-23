@@ -1,4 +1,4 @@
-let arr = [5, 1, 2, 2, 3, 4];
+let arr = [1, 5, 4, 3, 2, 2];
 
 // 冒泡算法O(n2)
 function popSort(arr) {
@@ -22,16 +22,11 @@ function popSort(arr) {
 
 // 选择排序。先找出数组中最小的值，和第一个元素交换位置。然后找出排除第一个元素剩下的数组的最小值和第二个元素交换位置，依次类推On2
 function select(arr) {
-    let flag = true;
     for (let i = 0; i < arr.length - 1; i++) {
         for (let j = i + 1; j < arr.length; j++) {
             if (arr[i] > arr[j]) {
                 [arr[i], arr[j]] = [arr[j], arr[i]]
-                flag = false;
             }
-        }
-        if (flag) {
-            break;
         }
     }
     return arr;
@@ -82,25 +77,22 @@ function quick(arr) {
     if (arr.length < 2) {
         return arr;
     }
-    let mid = Math.floor(arr.length / 2); // 找出中间位置的序号
-    let flag = arr[mid]; // 获取中间的值标记
+    let index = Math.floor(Math.random() * arr.length)
+    let flag = arr[index];
     let left = [];
     let right = [];
-    for (let m = 0; m < arr.length; m++) {
-        // 当前的序号不需要比较
-        if (m === mid) {
-            continue;
-        }
-        // 小于标记的值放左边
-        if (arr[m] < flag) {
-            left.push(arr[m])
+    let mid = [];
+    for (let val of arr) {
+        if (val < flag) {
+            left.push(val)
+        } else if (val > flag) {
+            right.push(val)
         } else {
-            // 大于标记的值放右边
-            right.push(arr[m])
+            mid.push(val)
         }
     }
-    return quick(left).concat(flag, quick(right))
+    return [...quick(left), ...mid, ...quick(right)];
 }
 
-popSort(arr)
-console.log(arr)
+quick(arr)
+console.log(quick(arr))

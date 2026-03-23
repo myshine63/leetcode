@@ -1,16 +1,26 @@
 // 防抖是指在事件触发后等待一段时间后再执行函数。如果在等待时间内又发生了同类型的事件，
 // 那么等待时间会被重置。防抖的主要目的是避免在事件连续触发时频繁执行函数，
 // 以提高性能和减少不必要的计算或请求。
-function debounce(fn, wait) {
+function debounce(fn, wait, immediate = false) {
     let timer;
     return function (...args) {
         const self = this;
         // 先清除掉原来的定时器
         clearInterval(timer);
-        // 创建一个新的定时器，去执行函数
-        timer = setTimeout(() => {
-            fn.apply(self, args)
-        }, wait);
+        if (immediate) {
+            let canNow = !timer
+            timer = setTimeout(() => {
+                timer = null
+            }, wait)
+            if (canNow) {
+                fn.apply(self, args)
+            }
+        } else {
+            // 创建一个新的定时器，去执行函数
+            timer = setTimeout(() => {
+                fn.apply(self, args)
+            }, wait);
+        }
     }
 }
 
