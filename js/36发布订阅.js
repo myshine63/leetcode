@@ -34,3 +34,4 @@ emitter.on('log', () => {
 emitter.on('log', () => {
     console.log('hello jerry')
 })
+export default emitter

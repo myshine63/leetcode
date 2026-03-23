@@ -1,4 +1,7 @@
-let activeEffect = null
+function render() {
+    console.log(proxyData.name);
+}
+let activeEffect = null;
 let targetMap = new WeakMap();
 
 
@@ -49,14 +52,15 @@ function trigger(target, key) {
 
 const data = {
     name: 'tom',
-    age: 123
+    age: 123,
 }
 const proxyData = reactive(data);
-
+let a = proxyData.name;
+let b = proxyData.name;
 let effect1 = () => {
     console.log('执行了effect1')
     return `name is ${proxyData.name}`
 }
-effect(effect1)
 
+effect(effect1)
 proxyData.name = 'jerry';

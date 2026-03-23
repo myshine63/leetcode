@@ -6,73 +6,95 @@
 </head>
 <body>
 <button id="a">
-    点击按钮
+    点击a
 </button>
-<div id="b">
+<button id="b">
+    点击b
+</button>
+<template>
+    <div>{{proxyData.name}}</div>
+    <div>{{proxyData.age}}</div>
+</template>
+<div id="app">
 
 </div>
 <script>
-    // let ch = new MessageChannel();
-    // let {port1, port2} = ch;
-    // let count = 0
-    let startTime = 0;
-    const during = 10
-    let deadTime = 0
 
-    // function f() {
-    //     while (!shouldStop()) {
-    //         f2()
-    //     }
-    //     if (count < 100000000000) {
-    //         return startWork()
-    //     }
-    // }
-    //
-    // port2.onmessage = f;
-    //
-    function f2() {
-        count++;
-    }
-
-    //
-    function shouldStop() {
-        return window.performance.now() > deadTime
-    }
-
-    //
-    // function startWork() {
-    //     startTime = window.performance.now();
-    //     deadTime = startTime + during;
-    //     port1.postMessage(null);
-    // }
-
-    // startWork();
-    let count = 0
-
-    function f22() {
-        startTime = window.performance.now();
-        deadTime = startTime + during;
-
-        while (!shouldStop()) {
-            f2()
+    let activeEffect = null;
+    let targetMap = new WeakMap();
+    let targetMap1 = {
+        data: {
+            name: [render]
         }
     }
 
-    setInterval(f22, 0)
+    function effect(fn) {
+        activeEffect = fn;
+        activeEffect();
+        activeEffect = null
+    }
 
+    function track(target = data, key = 'name') {
+        if (!activeEffect) {
+            return
+        }
+        let depsMap = targetMap.get(target);
+        if (!depsMap) {
+            targetMap.set(target, depsMap = new Map());
+        }
+        let deps = depsMap.get(key);
+        if (!deps) {
+            depsMap.set(key, deps = new Set())
+        }
+        deps.add(activeEffect);
+    }
 
-    // let count = 0
-    // setInterval(() => {
-    //     count++
-    // }, 0)
-    let c = document.getElementById('a')
-    let b = document.getElementById('b')
-    c.addEventListener("click", () => {
-        let p = document.createElement('p')
-        p.innerText = String(count)
-        b.appendChild(p)
+    function reactive(target) {
+        const handler = {
+            get(target, key, receiver) {
+                track(target, key); // 收集依赖
+                console.log(`访问了${key}属性`)
+                return Reflect.get(target, key, receiver)
+            },
+            set(target, key, value, receiver) {
+                console.log(`将${key}由->${target[key]}->设置成->${value}`)
+                Reflect.set(target, key, value, receiver)
+                trigger(target, key) // 收集到的依赖更新一次
+            }
+        }
+        return new Proxy(target, handler)
+    }
+
+    function trigger(target = data, key = 'name') {
+        let depsMap = targetMap.get(target);
+        let deps = depsMap.get(key);
+        deps.forEach(fn => {
+            fn()
+        })
+    }
+
+    const data = {
+        name: 1,
+        age: 123,
+    }
+    const proxyData = reactive(data);
+
+    function render() {
+        let app = document.querySelector('#app');
+        let div = document.createElement('div');
+        div.innerText = proxyData.name;
+        app.replaceChildren(div);
+    }
+
+    effect(render)
+    let btn = document.querySelector('#a');
+    btn.addEventListener('click', () => {
+        proxyData.name += 1;
     })
-
+    let btn1 = document.querySelector('#b');
+    btn1.addEventListener('click', () => {
+        proxyData.age = 123123;
+    })
 </script>
 </body>
 </html>

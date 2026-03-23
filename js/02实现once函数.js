@@ -18,11 +18,12 @@ function once(func, context) {
     }
 }
 
-function logName(name) {
+function aaa(name) {
     console.log('hello ' + name);
     return name
 }
 
-let newFunc = once(logName);
+let newFunc = once(aaa);
 console.log(newFunc('tom'));
 console.log(newFunc('jerry'));
+console.log(parseInt('110'))

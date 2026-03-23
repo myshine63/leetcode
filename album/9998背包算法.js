@@ -1,5 +1,5 @@
 // 给出一些物品的重量和价值，然后给定一个可以装多少重量的背包，求背包能装的东西价值最大
-
+// https://leetcode.cn/problems/last-stone-weight-ii/solutions/805162/yi-pian-wen-zhang-chi-tou-bei-bao-wen-ti-5lfv/?company_slug=bytedance
 function f(weight, charge, backpack) {
     let n = weight.length;
     let res = new Array(n);
